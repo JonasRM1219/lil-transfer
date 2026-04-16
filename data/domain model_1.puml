@@ -14,12 +14,12 @@ object library
 system *-- menu
 system *-- user
 system *-- library
-library*-- media
+library*--- media
 library *-- searchEngine
-media*-- category
 
-media--|>series
-media--|>movie
+media<|-- series
+media<|-- movie
+media*-- category
 
 
 
