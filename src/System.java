@@ -22,7 +22,6 @@ public class System {
     // Tager et brugernavn og returnere data fra CSV-filen.
     // Anvendes til at oprette en instance af User, når en bruger logger ind.
     public String[] getUserData(String username){
-        ArrayList<String> data = new ArrayList<>();
         ArrayList<String> userData = FileIO.readData("data/userData.csv");
         for (String line : userData){
             String[] attributes = line.split(";");
