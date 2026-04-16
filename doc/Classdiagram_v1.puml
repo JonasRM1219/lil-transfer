@@ -10,6 +10,7 @@ class System {
 - MediaLibrary mediaLibrary
 - Menu menu
 - ArrayList<User> allUsers
++ User createUser()
 }
 
 class MediaLibrary{
