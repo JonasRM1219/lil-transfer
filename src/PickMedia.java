@@ -3,7 +3,7 @@ import util.TextUI;
 
 import java.util.ArrayList;
 
-public class System {
+public class PickMedia {
 
     private MediaLibrary mediaLibrary;
     private User currentUser;
@@ -11,7 +11,7 @@ public class System {
     private ArrayList<User> users;
     TextUI ui;
 
-    public System() {
+    public PickMedia() {
         this.mediaLibrary = new MediaLibrary();
     }
 
