@@ -1,13 +1,15 @@
 import util.FileIO;
+import util.TextUI;
 
-import java.util.ArrayList;
-
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class System {
 
     private MediaLibrary mediaLibrary;
+    private User currentUser;
+    private Menu menu;
+    private ArrayList<User> users;
+    TextUI ui;
 
     public System() {
         this.mediaLibrary = new MediaLibrary();
@@ -35,9 +37,45 @@ public class System {
         for (String line : userData) {
             String[] attributes = line.split(";");
             if (username.equals(attributes[0].trim())) {
-                return line.split(",");
+                //Inden return skal denne laves om til ArrayList<String> da User tager ArrayList.
+                return line.split(";");
             }
         }
         return null;
+    }
+
+    void createExistingUser (String userName){ //hvad gør vi med existing users arraylister?
+        String [] attribute =getUserData(userName);
+        //Attribute 2 & 3 skal splittes på "," og via loop laves/tilføjes til hver sin arraylist.
+        //Da User tager String, String, ArrayList<String>, ArrayList<String>.
+        User u = new User(attribute[0].trim(),attribute[1].trim(), attribute[2],attribute[3]);
+        users.add(u);
+    }
+
+    //I tilfælde af at alle brugere skal indlæses, vi gemmer dog data via ArrayList<String>, så ikke nødvendigt.
+//    void createAllUsers(){ //igen hvad gør vi med arraylister?
+//        ArrayList <String> allUsers = new ArrayList<>(getExistingUPs());
+//        for (String s:allUsers){
+//            String [] attributes= s.split(",");
+//            User u= new User(attributes[0].trim(), attributes[1].trim());
+//            users.add(u);
+//        }
+//
+//    }
+
+
+
+    void promptCreateNewUser(){
+        String userName=ui.promptText("Input username");
+        String passWord=ui.promptText("input password");
+
+        User u= new User(userName,passWord);
+        users.add(u);
+
+    }
+
+    void createNewUser (String name, String password){
+        User u=new User(name, password);
+        users.add(u);
     }
 }
