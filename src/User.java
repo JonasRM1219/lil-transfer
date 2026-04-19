@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 
 public class User {
@@ -24,5 +26,20 @@ public class User {
 
     public void addMediaToList(Media m, ArrayList<Media> list){
         list.add(m);
+    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return passWord;
+    }
+
+    public ArrayList<String> getWantToWatch() {
+        return wantToWatch;
+    }
+
+    public ArrayList<String> getWatched() {
+        return watched;
     }
 }

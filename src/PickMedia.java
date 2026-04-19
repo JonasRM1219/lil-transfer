@@ -48,8 +48,16 @@ public class PickMedia {
         String [] attribute =getUserData(userName);
         //Attribute 2 & 3 skal splittes på "," og via loop laves/tilføjes til hver sin arraylist.
         //Da User tager String, String, ArrayList<String>, ArrayList<String>.
-        User u = new User(attribute[0].trim(),attribute[1].trim(), attribute[2],attribute[3]);
-        users.add(u);
+        String[] parts2 = attribute[2].split(",");
+        String[] parts3 = attribute[3].split(",");
+
+        ArrayList<String> want = new ArrayList<>();
+        ArrayList<String> watched = new ArrayList<>();
+
+        for (String s : parts2) want.add(s.trim());
+        for (String s : parts3) watched.add(s.trim());
+
+        User u = new User(attribute[0].trim(), attribute[1].trim(), want, watched);
     }
 
     //I tilfælde af at alle brugere skal indlæses, vi gemmer dog data via ArrayList<String>, så ikke nødvendigt.

@@ -1,0 +1,67 @@
+
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class LoginPrompt {
+    private final Scanner scanner = new Scanner(System.in);
+    private final ArrayList<User> brugere = new ArrayList<>();
+    private User currentUser;
+
+    public LoginPrompt() {
+        try {
+            Scanner fileScan = new Scanner(new File("data/userData.csv"));
+            while (fileScan.hasNextLine()) {
+                String[] data = fileScan.nextLine().split(";");
+                if (data.length >= 2) {
+                    String navn = data[0].trim();
+                    String pass = data[1].trim();
+
+                    ArrayList<String> want = new ArrayList<>();
+                    ArrayList<String> watched = new ArrayList<>();
+
+                    if (data.length >= 4) {
+                        if (!data[2].trim().isEmpty())
+                            for (String s : data[2].split(",")) want.add(s.trim());
+                        if (!data[3].trim().isEmpty())
+                            for (String s : data[3].split(",")) watched.add(s.trim());
+                    }
+                    brugere.add(new User(navn, pass, want, watched));
+                }
+            }
+            fileScan.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("userData.csv ikke fundet.");
+        }
+    }
+
+    public void execute() {
+        System.out.println("\nSTREAMINGCHILL");
+
+        while (true) {
+            System.out.print("\nHar du allerede en bruger? (ja/nej): ");
+            String svar = scanner.nextLine().trim().toLowerCase();
+
+            if (svar.equals("ja")) {
+                // UC1 #9 - Login method
+                LoginMethod loginMethod = new LoginMethod(brugere, scanner);
+                loginMethod.login();
+                currentUser = loginMethod.getCurrentUser();
+                break;
+            } else if (svar.equals("nej")) {
+                // UC1 #9 - Rainy day: opret bruger
+                LoginMethod loginMethod = new LoginMethod(brugere, scanner);
+                loginMethod.opretBruger();
+                currentUser = loginMethod.getCurrentUser();
+                break;
+            } else {
+                System.out.println("Skriv 'ja' eller 'nej'.");
+            }
+        }
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+}
